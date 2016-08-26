@@ -3,20 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BL;
+package TO;
 
 /**
  *
  * @author michael
  */
-public class Telefono {
-    
+public class TO_Telefono {
+      
     public int idTelefono;
     public int idPersona;
     public String Categoria;
     public String Numero;
 
-    public Telefono(int idTelefono, int idPersona, String Categoria, String Numero) {
+    public TO_Telefono(int idTelefono, int idPersona, String Categoria, String Numero) {
         this.idTelefono = idTelefono;
         this.idPersona = idPersona;
         this.Categoria = Categoria;
@@ -46,5 +46,7 @@ public class Telefono {
     public void setNumero(String Numero) {
         this.Numero = Numero;
     }
+    
+    
     
 }

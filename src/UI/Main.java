@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package UI;
-import UI.IniciarSesion;
+import dbconfig.ConfBD;
 import javax.swing.UIManager;
 
 /**
@@ -28,8 +28,12 @@ public class Main {
         } catch (Exception e) {
             // If Nimbus is not available, you can set the GUI to another look and feel.
         }
-        IniciarSesion is = new IniciarSesion(null, true);
-        is.setVisible(true);
+        
+        ConfBD dbconf = new ConfBD();
+//        IniciarSesion is = new IniciarSesion(null, true);
+//        is.setVisible(true);
+        Menu m = new Menu();
+        m.setVisible(true);
     }
     
 }

@@ -5,13 +5,16 @@
  */
 package UI;
 
+import BL.BL_Usuario;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,6 +25,8 @@ public class IniciarSesion extends javax.swing.JDialog {
     /**
      * Creates new form IniciarSesion
      */
+    Menu m;
+    
     public IniciarSesion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -40,13 +45,14 @@ public class IniciarSesion extends javax.swing.JDialog {
 
         jp = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tf_usuario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         lb_img = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        pf_contrasena = new javax.swing.JPasswordField();
+        bt_acpetar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        jm_Conexion = new javax.swing.JMenu();
+        jmi_ProbarCnexion = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -56,14 +62,18 @@ public class IniciarSesion extends javax.swing.JDialog {
         jp.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setBackground(new java.awt.Color(102, 102, 102));
-        jLabel2.setForeground(new java.awt.Color(51, 102, 255));
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("USUARIO");
 
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tf_usuario.setBackground(new java.awt.Color(51, 51, 51));
+        tf_usuario.setForeground(new java.awt.Color(204, 204, 204));
+        tf_usuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel3.setBackground(new java.awt.Color(102, 102, 102));
-        jLabel3.setForeground(new java.awt.Color(51, 102, 255));
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("CONTRASEÑA");
 
@@ -72,91 +82,111 @@ public class IniciarSesion extends javax.swing.JDialog {
         lb_img.setMinimumSize(new java.awt.Dimension(400, 400));
         lb_img.setPreferredSize(new java.awt.Dimension(400, 400));
 
-        jPasswordField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pf_contrasena.setBackground(new java.awt.Color(51, 51, 51));
+        pf_contrasena.setForeground(new java.awt.Color(204, 204, 204));
+        pf_contrasena.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pf_contrasena.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                pf_contrasenaKeyPressed(evt);
+            }
+        });
+
+        bt_acpetar.setBackground(new java.awt.Color(51, 51, 51));
+        bt_acpetar.setForeground(new java.awt.Color(153, 153, 153));
+        bt_acpetar.setText("ACEPTAR");
+        bt_acpetar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_acpetarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpLayout = new javax.swing.GroupLayout(jp);
         jp.setLayout(jpLayout);
         jpLayout.setHorizontalGroup(
             jpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lb_img, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addGroup(jpLayout.createSequentialGroup()
-                .addGap(97, 97, 97)
+            .addComponent(lb_img, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpLayout.createSequentialGroup()
+                .addGap(0, 109, Short.MAX_VALUE)
                 .addGroup(jpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPasswordField1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                    .addComponent(pf_contrasena)
+                    .addComponent(tf_usuario)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(108, Short.MAX_VALUE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                    .addComponent(bt_acpetar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(109, 109, 109))
         );
         jpLayout.setVerticalGroup(
             jpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpLayout.createSequentialGroup()
-                .addComponent(lb_img, javax.swing.GroupLayout.PREFERRED_SIZE, 283, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(lb_img, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tf_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addComponent(pf_contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bt_acpetar)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         getContentPane().add(jp);
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.setBackground(new java.awt.Color(51, 51, 51));
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        jm_Conexion.setText("Conexión");
+
+        jmi_ProbarCnexion.setText("Probar Conexión");
+        jm_Conexion.add(jmi_ProbarCnexion);
+
+        jMenuBar1.add(jm_Conexion);
 
         setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void bt_acpetarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_acpetarActionPerformed
+        // TODO add your handling code here:
+        IniciarSesion();
+    }//GEN-LAST:event_bt_acpetarActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                IniciarSesion dialog = new IniciarSesion(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+    private void pf_contrasenaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pf_contrasenaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            IniciarSesion();
+        }
+    }//GEN-LAST:event_pf_contrasenaKeyPressed
+
+    public String ArraytoString(char[] cont) {
+        String hilera = "";
+        for (int i = 0; i < cont.length; i++) {
+            hilera += cont[i];
+        }
+        return hilera;
     }
+    
+    public void IniciarSesion(){
+        String NombreUsuario = tf_usuario.getText();
+        String Contrasena = ArraytoString(pf_contrasena.getPassword());
+        //JOptionPane.showMessageDialog(null, Contrasena);
+        if (NombreUsuario.isEmpty() == true || Contrasena.isEmpty() == true) {
+            JOptionPane.showMessageDialog(null, "Faltan Datos", "Entrada Invalida", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            BL_Usuario bl = new BL_Usuario(NombreUsuario, Contrasena);
+            if (bl.iniciarSesion()) {
+                m = new Menu();
+                m.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Datos Invalidos", "Entrada Invalida", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }
+    
+    
 
     public Icon redimensionar() {
         
@@ -176,14 +206,15 @@ public class IniciarSesion extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_acpetar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JMenu jm_Conexion;
+    private javax.swing.JMenuItem jmi_ProbarCnexion;
     private javax.swing.JPanel jp;
     private javax.swing.JLabel lb_img;
+    private javax.swing.JPasswordField pf_contrasena;
+    private javax.swing.JTextField tf_usuario;
     // End of variables declaration//GEN-END:variables
 }

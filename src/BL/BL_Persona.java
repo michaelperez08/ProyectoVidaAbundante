@@ -3,15 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package TO;
+package BL;
 
+import DAO.DAO_Persona;
+import TO.TO_Persona;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
  *
  * @author michael
  */
-public class TOPersona {
+public class BL_Persona {
     
     public int idPersona;
     public String Nombre;
@@ -21,9 +24,16 @@ public class TOPersona {
     public String Direccion;
     public String Correo;
     public boolean discipulo;
-    public TOTelefono Telefono;
+    public BL_Telefono Telefono;
 
-    public TOPersona(int idPersona, String Nombre, String PrimerApellido, String SegundoApellido, Date FechaNacimiento, String Direccion, String Correo, boolean discipulo, TOTelefono Telefono) {
+    //Listas
+    ArrayList<TO_Persona> top;
+    ArrayList<BL_Persona> blp;
+    
+    public BL_Persona() {
+    }
+    
+    public BL_Persona(int idPersona, String Nombre, String PrimerApellido, String SegundoApellido, Date FechaNacimiento, String Direccion, String Correo, boolean discipulo, BL_Telefono Telefono) {
         this.idPersona = idPersona;
         this.Nombre = Nombre;
         this.PrimerApellido = PrimerApellido;
@@ -35,7 +45,7 @@ public class TOPersona {
         this.Telefono = Telefono;
     }
 
-    public TOPersona(String Nombre, String PrimerApellido, String SegundoApellido, Date FechaNacimiento, String Direccion, String Correo, boolean discipulo, TOTelefono Telefono) {
+    public BL_Persona(String Nombre, String PrimerApellido, String SegundoApellido, Date FechaNacimiento, String Direccion, String Correo, boolean discipulo, BL_Telefono Telefono) {
         this.Nombre = Nombre;
         this.PrimerApellido = PrimerApellido;
         this.SegundoApellido = SegundoApellido;
@@ -46,6 +56,15 @@ public class TOPersona {
         this.Telefono = Telefono;
     }
 
+    public int getIdPersona() {
+        return idPersona;
+    }
+
+    public void setIdPersona(int idPersona) {
+        this.idPersona = idPersona;
+    }
+
+    
     public String getNombre() {
         return Nombre;
     }
@@ -102,14 +121,37 @@ public class TOPersona {
         this.discipulo = discipulo;
     }
 
-    public TOTelefono getTelefono() {
+    public BL_Telefono getTelefono() {
         return Telefono;
     }
 
-    public void setTelefono(TOTelefono Telefono) {
+    public void setTelefono(BL_Telefono Telefono) {
         this.Telefono = Telefono;
-    } 
+    }
     
+    public ArrayList<BL_Persona> cargarPersonas(){
+        DAO_Persona daop = new DAO_Persona();
+        blp = new ArrayList<>();
+        top = daop.getListaPersonas();
+        for (TO_Persona temp : top) {
+            blp.add(new BL_Persona(temp.idPersona, temp.Nombre, temp.PrimerApellido, temp.SegundoApellido, temp.FechaNacimiento, 
+                    temp.Direccion, temp.Correo, temp.discipulo, null));
+        }
+        return blp;
+    }
     
+    public BL_Persona personaPorId(int id, ArrayList<BL_Persona> listblp){
+        for (BL_Persona perstemp : listblp) {
+            if(perstemp.idPersona == id){
+                return perstemp;
+            }
+        }
+        return null;
+    }
+    
+    public boolean ingresarPersona(){
+        DAO_Persona daop = new DAO_Persona();
+        return daop.ingresarPersona(new TO_Persona(Nombre, PrimerApellido, SegundoApellido, FechaNacimiento, Direccion, Correo, discipulo, null));
+    }
     
 }

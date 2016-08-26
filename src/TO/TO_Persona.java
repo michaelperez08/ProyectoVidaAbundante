@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BL;
+package TO;
 
 import java.util.Date;
 
@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author michael
  */
-public class Persona {
+public class TO_Persona {
     
     public int idPersona;
     public String Nombre;
@@ -21,9 +21,9 @@ public class Persona {
     public String Direccion;
     public String Correo;
     public boolean discipulo;
-    public Telefono Telefono;
+    public TO_Telefono Telefono;
 
-    public Persona(int idPersona, String Nombre, String PrimerApellido, String SegundoApellido, Date FechaNacimiento, String Direccion, String Correo, boolean discipulo, Telefono Telefono) {
+    public TO_Persona(int idPersona, String Nombre, String PrimerApellido, String SegundoApellido, Date FechaNacimiento, String Direccion, String Correo, boolean discipulo, TO_Telefono Telefono) {
         this.idPersona = idPersona;
         this.Nombre = Nombre;
         this.PrimerApellido = PrimerApellido;
@@ -35,7 +35,7 @@ public class Persona {
         this.Telefono = Telefono;
     }
 
-    public Persona(String Nombre, String PrimerApellido, String SegundoApellido, Date FechaNacimiento, String Direccion, String Correo, boolean discipulo, Telefono Telefono) {
+    public TO_Persona(String Nombre, String PrimerApellido, String SegundoApellido, Date FechaNacimiento, String Direccion, String Correo, boolean discipulo, TO_Telefono Telefono) {
         this.Nombre = Nombre;
         this.PrimerApellido = PrimerApellido;
         this.SegundoApellido = SegundoApellido;
@@ -102,13 +102,14 @@ public class Persona {
         this.discipulo = discipulo;
     }
 
-    public Telefono getTelefono() {
+    public TO_Telefono getTelefono() {
         return Telefono;
     }
 
-    public void setTelefono(Telefono Telefono) {
+    public void setTelefono(TO_Telefono Telefono) {
         this.Telefono = Telefono;
     } 
+    
     
     
 }
